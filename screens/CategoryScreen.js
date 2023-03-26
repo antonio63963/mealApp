@@ -4,8 +4,8 @@ import CategoryGridTile from "../components/CategoryGridTile";
 import { CATEGORIES } from "../data/meal";
 
 function CategoryScreen({ navigation }) {
-  function onPressHandler(id) {
-    navigation.navigate("MealsOverview", { categoryId: id });
+  function onPressHandler({id, title}) {
+    navigation.navigate("MealsOverview", { categoryId: id, title });
   }
 
   return (
@@ -16,7 +16,7 @@ function CategoryScreen({ navigation }) {
           <CategoryGridTile
             title={cat.item.title}
             color={cat.item.color}
-            onPress={onPressHandler.bind(this, cat.item.id)}
+            onPress={onPressHandler.bind(this, {id: cat.item.id, title: cat.item.title})}
           />
         )}
         keyExtractor={(cat, idx) => cat.id}
