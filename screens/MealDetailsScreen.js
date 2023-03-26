@@ -3,11 +3,11 @@ import { useLayoutEffect } from "react";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import OcticonsIcons from "react-native-vector-icons/Octicons";
 
 import { MEALS } from "../data/meal";
 
 import Character from "../components/Character";
+import ListItem from "../components/ListItems";
 
 function MealDetailsScreen({ navigation, route }) {
   const { id, title } = route.params;
@@ -46,25 +46,16 @@ function MealDetailsScreen({ navigation, route }) {
             </Character>
           </View>
         </View>
-        <View style={styles.descriptionSection}>
-          <Text style={styles.ingredTitle}>Ingredients:</Text>
-          {ingredients.map((item, idx) => (
-            <View style={styles.ingredientItem}>
-              <OcticonsIcons name="dot-fill" color="#eee" seze={20} />
-              <Text key={`${idx}_ingred`} style={styles.detailText}>
-                 {item}
-              </Text>
-            </View>
-          ))}
-          <Text style={styles.ingredTitle}>Steps:</Text>
-          <View style={styles.stepContainer}>
-            {steps.map((item, idx) => (
-              <Text key={`${idx}_step`} style={styles.detailText}>
-                {idx + 1}. {item}
-              </Text>
-            ))}
-          </View>
-        </View>
+
+        <ListItem title="Ingredients" isUl={true} list={ingredients} />
+
+        <ListItem
+          title="Steps"
+          isUl={false}
+          list={steps}
+          bgColor="#eee"
+          textColor="#080d1f"
+        />
       </View>
     </ScrollView>
   );
@@ -75,30 +66,26 @@ export default MealDetailsScreen;
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    // padding: 16,
   },
   card: {
     backgroundColor: "#eee",
-    // borderRadius: 8,
-    // overflow: "hidden",
   },
   imageContainer: {
-    position: 'relative',
-
+    position: "relative",
   },
   titleWrapper: {
-    position: 'absolute',
+    position: "absolute",
     zIndex: 2,
     bottom: 0,
-    backgroundColor: '#080d1f',
+    backgroundColor: "#080d1f",
     padding: 5,
     paddingRight: 20,
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
-    opacity: .7
+    opacity: 0.7,
   },
   title: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 24,
   },
   image: {
@@ -111,28 +98,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  descriptionSection: {
-    padding: 16
-  },
-  ingredTitle: {
-    color: "#eee",
-    fontSize: 28,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginVertical: 16,
-  },
-  ingredientItem: {
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  detailText: {
-    marginLeft: 10,
-    color: "#eee",
-    opacity: 0.7,
-    fontSize: 22,
-    marginVertical: 8,
-  },
-  stepContainer: {
-    backgroundColor: '#eee'
-  }
 });
