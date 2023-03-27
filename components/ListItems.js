@@ -22,7 +22,7 @@ function ListItem({ isUl, title, list, bgColor, textColor }) {
                 seze={20}
               />
               <Text
-                key={`${idx}_ingred`}
+                key={`${item}_ingred`}
                 style={[styles.detailText, textColor && { color: textColor }]}
               >
                 {item}

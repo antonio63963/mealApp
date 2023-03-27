@@ -1,4 +1,4 @@
-import { ScrollView, View, Image, Text, StyleSheet } from "react-native";
+import { ScrollView, View, Image, Text, StyleSheet, Button } from "react-native";
 import { useLayoutEffect } from "react";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -8,6 +8,7 @@ import { MEALS } from "../data/meal";
 
 import Character from "../components/Character";
 import ListItem from "../components/ListItems";
+import IconButton from "../components/IconButton";
 
 function MealDetailsScreen({ navigation, route }) {
   const { id, title } = route.params;
@@ -18,10 +19,14 @@ function MealDetailsScreen({ navigation, route }) {
 
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
+  function onIconClickHandler() {
+    console.log('Click')
   }
 
   useLayoutEffect(() => {
-    navigation.setOptions({ title });
+    navigation.setOptions({ title, headerRight: () => <IconButton icon="star" color="white" onPress={onIconClickHandler} /> });
   }, [navigation]);
 
   return (
