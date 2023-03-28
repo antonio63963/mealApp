@@ -3,6 +3,7 @@ import { useLayoutEffect } from "react";
 import { MEALS } from "../data/meal";
 
 import ListMealsItems from "../components/ListMealsItems";
+import MessageScreen from "../components/MessageScreen";
 
 function MealsOverviewScreen({ route, navigation }) {
   const { categoryId, title } = route.params;
@@ -14,8 +15,13 @@ function MealsOverviewScreen({ route, navigation }) {
     navigation.setOptions({title});
 
   }, [navigation])
+
   return (
-    <ListMealsItems listMeals={meals}/>
+    <ListMealsItems listMeals={meals}>
+      <MessageScreen
+        message={"Sorry! No meals in this category..."}
+      />
+    </ListMealsItems>
   );
 }
 

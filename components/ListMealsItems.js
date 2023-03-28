@@ -1,9 +1,10 @@
 import { useContext } from "react";
-import { View, FlatList, StyleSheet } from "react-native";
+import { View, FlatList, Text, StyleSheet } from "react-native";
 
 import { FavoriteContext } from "../store/context/favorite-context";
 
 import MealItem from "../components/MealItem";
+import ButtonText from "./ButtonAction";
 
 export function renderMealItem(meal) {
   const { id, title, imageUrl, duration, complexity, affordability } =
@@ -12,7 +13,7 @@ export function renderMealItem(meal) {
   return <MealItem {...itemData} />;
 }
 
-function ListMealsItems({ listMeals }) {
+function ListMealsItems({ listMeals, children }) {
   return (
     <View style={styles.rootContainer}>
       {listMeals.length ? (
@@ -21,11 +22,7 @@ function ListMealsItems({ listMeals }) {
           keyExtractor={(item, idx) => `${idx}_meal`}
           renderItem={renderMealItem}
         />
-      ) : (
-        <View style={[styles.rootContainer]}>
-          <Text>No Favorite Meals Yet...</Text>
-        </View>
-      )}
+      ) : children}
     </View>
   );
 }
@@ -35,14 +32,5 @@ export default ListMealsItems;
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-  },
-  textContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  text: {
-    color: "#eeeeee",
-    fontSize: 32,
-    fontWeight: "bold",
   },
 });
