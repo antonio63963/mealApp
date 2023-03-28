@@ -1,8 +1,17 @@
-import { ScrollView, View, Image, Text, StyleSheet, Button } from "react-native";
+import { useContext } from "react";
+import {
+  ScrollView,
+  View,
+  Image,
+  Text,
+  StyleSheet,
+  Button,
+} from "react-native";
 import { useLayoutEffect } from "react";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import { FavoriteContext } from "../store/context/favorite-context";
 
 import { MEALS } from "../data/meal";
 
@@ -11,23 +20,32 @@ import ListItem from "../components/ListItems";
 import IconButton from "../components/IconButton";
 
 function MealDetailsScreen({ navigation, route }) {
+  const favoriteContext = useContext(FavoriteContext);
+  
   const { id, title } = route.params;
   const selectedMeal = MEALS.find((m) => m.id === id);
   const { imageUrl, affordability, complexity, duration, ingredients, steps } =
-    selectedMeal;
-  console.log(selectedMeal);
+  selectedMeal;
+  
+  const isFavorite = favoriteContext.ids.includes(id);
 
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
-  };
+  }
 
   function onIconClickHandler() {
-    console.log('Click')
+    isFavorite ? favoriteContext.removeFavorite(id) : favoriteContext.addFavorite(id);
+    setTimeout(() => console.log("favorite: ", favoriteContext.ids), 200);
   }
 
   useLayoutEffect(() => {
-    navigation.setOptions({ title, headerRight: () => <IconButton icon="star" color="white" onPress={onIconClickHandler} /> });
-  }, [navigation]);
+    navigation.setOptions({
+      title,
+      headerRight: () => (
+        <IconButton icon={isFavorite ? "star" : "star-outline"} color="white" onPress={onIconClickHandler} />
+      ),
+    });
+  }, [navigation, onIconClickHandler]);
 
   return (
     <ScrollView>
