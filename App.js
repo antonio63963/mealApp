@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { StyleSheet, Text, View, SafeAreaView } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
@@ -8,7 +7,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import { Ionicons } from "@expo/vector-icons";
 
-import FavoriteContextProvider from "./store/context/redux/favorite-context";
+import FavoriteContextProvider from "./store/context/favorite-context";
 
 import CategoryScreen from "./screens/CategoryScreen";
 import MealsOverviewScreen from "./screens/MealsOverviewScreen";
@@ -21,7 +20,6 @@ const Drawer = createDrawerNavigator();
 const screenOptions = {
   headerStyle: { backgroundColor: "#080d1f" },
   headerTintColor: "white",
-  sceneContainerStyle: { backgroundColor: "#272d42" },
 };
 
 function DrawerNavigator() {
@@ -29,6 +27,7 @@ function DrawerNavigator() {
     <Drawer.Navigator
       screenOptions={{
         ...screenOptions,
+        sceneContainerStyle: { backgroundColor: "#272d42" },
         drawerInactiveTintColor: "white",
         drawerContentStyle: { backgroundColor: "#272d42" },
       }}
@@ -63,7 +62,12 @@ export default function App() {
       <StatusBar style="light" />
       <FavoriteContextProvider>
         <NavigationContainer>
-          <Stack.Navigator screenOptions={screenOptions}>
+          <Stack.Navigator
+            screenOptions={{
+              ...screenOptions,
+              contentStyle: { backgroundColor: "#272d42" },
+            }}
+          >
             <Stack.Screen
               name="Categories"
               component={DrawerNavigator}
