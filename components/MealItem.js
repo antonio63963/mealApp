@@ -7,7 +7,7 @@ import {
   Platform,
 } from "react-native";
 
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 
 function MealItem({
   id,
@@ -19,9 +19,9 @@ function MealItem({
 }) {
   const navigation = useNavigation();
   function onPressMeal() {
-    navigation.navigate("Details", {id, title});
-  };
-  
+    navigation.navigate("Details", { id, title });
+  }
+
   return (
     <View style={styles.rootContainer}>
       <Pressable
@@ -44,6 +44,13 @@ function MealItem({
 }
 
 export default MealItem;
+
+export function renderMealItem(meal) {
+  const { id, title, imageUrl, duration, complexity, affordability } =
+    meal.item;
+  const itemData = { id, title, imageUrl, duration, complexity, affordability };
+  return <MealItem {...itemData} />;
+}
 
 const styles = StyleSheet.create({
   rootContainer: {
