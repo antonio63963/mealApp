@@ -12,7 +12,7 @@ function ListItem({ isUl, title, list, bgColor, textColor }) {
               key={`${idx}_item`}
               style={[styles.detailText, textColor && { color: textColor }]}
             >
-              {idx + 1}.{item}
+              {idx + 1}. {item}
             </Text>
           ) : (
             <View style={styles.ul}>
