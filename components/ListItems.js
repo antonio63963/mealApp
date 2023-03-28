@@ -6,7 +6,7 @@ function ListItem({ isUl, title, list, bgColor, textColor }) {
     <>
       <View style={[styles.rootContainer, { backgroundColor: bgColor }]}>
       <Text style={[styles.title, textColor && {color: textColor}]}>{title}:</Text>
-        {list.map((item, idx) =>
+        {list.map((item, idx) => 
           !isUl ? (
             <Text
               key={`${idx}_item`}
@@ -15,14 +15,13 @@ function ListItem({ isUl, title, list, bgColor, textColor }) {
               {idx + 1}. {item}
             </Text>
           ) : (
-            <View style={styles.ul}>
+            <View key={`${idx}_ingred`} style={styles.ul}>
               <OcticonsIcons
                 name="dot-fill"
                 color={textColor ? textColor : "grey"}
                 seze={20}
               />
               <Text
-                key={`${item}_ingred`}
                 style={[styles.detailText, textColor && { color: textColor }]}
               >
                 {item}
