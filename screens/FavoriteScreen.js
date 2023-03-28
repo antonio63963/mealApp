@@ -1,34 +1,15 @@
-import { useContext, useState } from "react";
-import { ScrollView, View, Text, FlatList, StyleSheet } from "react-native";
+import { useContext } from "react";
 
 import { FavoriteContext } from "../store/context/favorite-context";
 import { MEALS } from "../data/meal";
 
-import { renderMealItem } from "../components/MealItem";
+import ListMealsItems from "../components/ListMealsItems";
 
 function FavoriteScreen() {
   const favoriteContext = useContext(FavoriteContext);
+  const meals = MEALS.filter(meal => favoriteContext.ids.includes(meal.id))
 
-  console.log("Favorite Screen: ", favoriteContext.ids);
-  return (
-    <View style={styles.rootContainer}>
-      {favoriteContext.ids.length ? (
-        <FlatList
-          data={favoriteContext.ids.map((id) =>
-            MEALS.find((item) => item.id === id)
-          )}
-          keyExtractor={(item, idx) => `${idx}_fav`}
-          renderItem={renderMealItem}
-        />
-      ) : null}
-    </View>
-  );
+  return <ListMealsItems listMeals={meals} />;
 }
 
 export default FavoriteScreen;
-
-const styles = StyleSheet.create({
-  rootContainer: {
-    flex: 1,
-  },
-});

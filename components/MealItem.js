@@ -45,13 +45,6 @@ function MealItem({
 
 export default MealItem;
 
-export function renderMealItem(meal) {
-  const { id, title, imageUrl, duration, complexity, affordability } =
-    meal.item;
-  const itemData = { id, title, imageUrl, duration, complexity, affordability };
-  return <MealItem {...itemData} />;
-}
-
 const styles = StyleSheet.create({
   rootContainer: {
     margin: 16,
