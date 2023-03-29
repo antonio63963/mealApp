@@ -8,10 +8,13 @@ import {
   Button,
 } from "react-native";
 import { useLayoutEffect } from "react";
+import {useSelector, useDispatch} from 'react-redux';
+import { addFavorite, removeFavorite } from "../store/redux/favorites";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { FavoriteContext } from "../store/context/favorite-context";
+
 
 import { MEALS } from "../data/meal";
 
@@ -20,7 +23,9 @@ import ListItem from "../components/ListItems";
 import IconButton from "../components/IconButton";
 
 function MealDetailsScreen({ navigation, route }) {
-  const favoriteContext = useContext(FavoriteContext);
+  // const favoriteContext = useContext(FavoriteContext);
+  const favoriteContext = useSelector((state) => state.favoriteMeals);
+  const dispatch = useDispatch();
   
   const { id, title } = route.params;
   const selectedMeal = MEALS.find((m) => m.id === id);
@@ -34,8 +39,8 @@ function MealDetailsScreen({ navigation, route }) {
   }
 
   function onIconClickHandler() {
-    isFavorite ? favoriteContext.removeFavorite(id) : favoriteContext.addFavorite(id);
-    setTimeout(() => console.log("favorite: ", favoriteContext.ids), 200);
+    // isFavorite ? favoriteContext.removeFavorite(id) : favoriteContext.addFavorite(id);
+    isFavorite ? dispatch(removeFavorite({id})) : dispatch(addFavorite({id}));
   }
 
   useLayoutEffect(() => {

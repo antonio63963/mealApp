@@ -1,3 +1,4 @@
+import { Provider } from "react-redux";
 import { StyleSheet, Text, View, SafeAreaView } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
@@ -8,6 +9,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Ionicons } from "@expo/vector-icons";
 
 import FavoriteContextProvider from "./store/context/favorite-context";
+import {store} from './store/redux/store';
 
 import CategoryScreen from "./screens/CategoryScreen";
 import MealsOverviewScreen from "./screens/MealsOverviewScreen";
@@ -60,7 +62,8 @@ export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
-      <FavoriteContextProvider>
+      {/* <FavoriteContextProvider> */}
+      <Provider store={store}>
         <NavigationContainer>
           <Stack.Navigator
             screenOptions={{
@@ -75,14 +78,12 @@ export default function App() {
                 headerShown: false,
               }}
             />
-            <Stack.Screen
-              name="MealsOverview"
-              component={MealsOverviewScreen}
-            />
+            <Stack.Screen name="MealsOverview" component={MealsOverviewScreen} />
             <Stack.Screen name="Details" component={MealDetailsScreen} />
           </Stack.Navigator>
         </NavigationContainer>
-      </FavoriteContextProvider>
+      </Provider>
+      {/* </FavoriteContextProvider> */}
     </View>
   );
 }
